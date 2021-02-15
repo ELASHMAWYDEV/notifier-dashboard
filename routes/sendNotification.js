@@ -60,6 +60,8 @@ router.post("/", async (req, res) => {
         sound: "default",
         title,
         body,
+        priority: "high",
+        channelId: "notifications",
         data: {},
       },
     ]);

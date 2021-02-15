@@ -8,14 +8,12 @@ router.post("/", async (req, res) => {
 
     //Validate token
     if (!token || !token.startsWith("ExponentPushToken")) {
-      return res.status(406).send("Sorry, your push token is not valid !");
+      return res.json({ error: "Sorry, your push token is not valid !" });
     }
 
     //Validate appId
     if (!(await AppModel.findById(appId))) {
-      return res
-        .status(406)
-        .send("Sorry, the app is not registerd on server !");
+      return res.json({ error: "Sorry, the app is not registerd on server !" });
     }
 
     //check if token already exist
@@ -37,9 +35,9 @@ router.post("/", async (req, res) => {
     if (saveToken) {
       return res.sendStatus(200);
     } else {
-      return res
-        .status(406)
-        .send("Sorry, something happend while saving your push token");
+      return res.json({
+        error: "Sorry, something happend while saving your push token",
+      });
     }
   } catch (e) {
     console.log(`Error in /addToken, error: ${e.message}`, e);
