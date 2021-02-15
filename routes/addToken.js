@@ -18,7 +18,10 @@ router.post("/", async (req, res) => {
 
     //check if token already exist
     if (
-      await AppModel.findOne({ _id: appId, pushTokens: { $elemMatch: token } })
+      await AppModel.findOne({
+        _id: appId,
+        pushTokens: { $elemMatch: { $eq: token } },
+      })
     ) {
       return res.sendStatus(200);
     }
