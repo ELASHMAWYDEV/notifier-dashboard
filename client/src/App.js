@@ -18,13 +18,17 @@ const App = () => {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/login" component={Login} />
-          {isLoggedIn && <>
-          <Route path="/dashboard" component={Dashboard} />
-          
-            
-          </>}
-          <Redirect to="/login" />
+          {isLoggedIn ? (
+            <>
+              <Route path="/dashboard" component={Dashboard} />
+              <Redirect to="/dashboard" />
+            </>
+          ) : (
+            <>
+              <Route path="/login" component={Login} />
+              <Redirect to="/login" />
+            </>
+          )}
         </Switch>
       </Router>
     </div>

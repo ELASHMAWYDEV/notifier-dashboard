@@ -27,16 +27,20 @@ router.post("/", async (req, res) => {
 
     //Send the jwt token with the success response
     const accessToken = await createToken({ _id: userSearch._id });
+
+    res.cookie("access_token", accessToken, { maxAge: 86400 * 1000 });
     return res.json({
       status: true,
       messages: ["تم تسجيل الدخول بنجاح"],
-      accessToken,
     });
 
     /********************************************************/
   } catch (e) {
     console.log(`Error in /login, error: ${e.message}`, e);
-    res.sendStatus(500);
+    res.json({
+      status: false,
+      errors: [e.message],
+    });
   }
 });
 

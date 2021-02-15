@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { useAuthContext } from "../../providers";
+import { useHistory } from "react-router-dom";
 
 //Styles
 import "./style.scss";
@@ -11,7 +13,33 @@ import LockImage from "../../assets/img/lock.svg";
 import ProfileImage from "../../assets/img/profile.svg";
 
 const LoginForm = () => {
+  const history = useHistory();
   const { setIsLoggedIn } = useAuthContext();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const login = async ({ username, password }) => {
+    try {
+      if (!username || !password) {
+        return alert("يجب كتابة اسم المستخدم وكلمة المرور");
+      }
+
+      const response = await axios.post("/login", {
+        username,
+        password,
+      });
+      const data = await response.data;
+
+      if (!data.status) {
+        return alert(data.errors);
+      }
+
+      setIsLoggedIn(true);
+      history.push("/dashboard");
+    } catch (e) {
+      alert(e.message);
+    }
+  };
 
   return (
     <div className="login-container">
@@ -19,7 +47,7 @@ const LoginForm = () => {
         <div className="head">
           <h2>تسجيل الدخول</h2>
         </div>
-        <form method="POST">
+        <form method="POST" onSubmit={(e) => e.preventDefault()}>
           <div className="content">
             <div className="input-items">
               <div className="input-item">
@@ -27,8 +55,9 @@ const LoginForm = () => {
                 <input
                   type="text"
                   name="user"
-                  placeholder="اسم المستخدم أو البريد الالكتروني"
+                  placeholder="اسم المستخدم"
                   required
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="input-item">
@@ -38,13 +67,14 @@ const LoginForm = () => {
                   name="pass"
                   placeholder="كلمة المرور"
                   required
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="input-item">
                 <button
                   className="btn-login"
                   type="submit"
-                  onClick={() => setIsLoggedIn(true)}
+                  onClick={() => login({ username, password })}
                 >
                   تسجيل الدخول
                 </button>

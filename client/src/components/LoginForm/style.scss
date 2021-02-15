@@ -39,6 +39,7 @@
       input {
         @include input;
         width: 80%;
+        background-color: $light-gray;
       }
       img {
         width: 30px;

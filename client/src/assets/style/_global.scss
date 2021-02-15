@@ -341,15 +341,14 @@ $dark-blue: #0984e3;
 //input tag
 @mixin input {
   display: inline-block;
-  padding: 6px 10px;
+  padding: 6px 15px;
   border-radius: 8px;
-  background-color: $light-gray;
+  background-color: $white;
   color: $dark-gray;
   border: 1.5px solid transparent;
   outline: none;
   font-weight: 500;
-  font-size: 14px;
-  width: 180px;
+  font-size: 16px;
   @include trans;
   &:focus {
     border: 1.5px solid #0984e3;
@@ -461,7 +460,7 @@ $dark-blue: #0984e3;
   }
   td.action {
     @include flex;
-    justify-content: start;
+    justify-content: flex-start;
   }
   tr {
     &:nth-child(odd) {
@@ -484,7 +483,7 @@ $dark-blue: #0984e3;
   }
   .pagination {
     @include flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin: 20px 0;
     button {
       display: inline-block;
@@ -681,7 +680,7 @@ footer {
     font-size: 18px;
     width: 100%;
     @include flex;
-    justify-content: start;
+    justify-content: flex-start;
     font-weight: 500;
     margin-bottom: 15px;
     &-success {
@@ -709,5 +708,29 @@ footer {
       opacity: 0;
       transform: translateY(-40px);
     }
+  }
+}
+
+@mixin btn-add {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  color: $white;
+  padding: 10px 30px;
+  font-size: 24px;
+  font-weight: 500;
+  background: linear-gradient(30deg, #f19895 0%, #f8ba7d 60%, #ffdc64 100%);
+  filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.2));
+  border: none;
+  transition: 0.5s ease;
+  &:hover {
+    background: linear-gradient(90deg, #f19895 0%, #f8ba7d 60%, #ffdc64 100%);
+  }
+  &:active {
+    transition: none;
+    transform: scale(0.95);
   }
 }
