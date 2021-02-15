@@ -53,14 +53,16 @@ router.post("/", async (req, res) => {
       finalPushTokens.push(pushToken);
     }
 
-    let chunks = expo.chunkPushNotifications({
-      // @ts-ignore
-      to: finalPushTokens,
-      sound: "default",
-      title,
-      body,
-      data: {},
-    });
+    let chunks = expo.chunkPushNotifications([
+      {
+        // @ts-ignore
+        to: finalPushTokens,
+        sound: "default",
+        title,
+        body,
+        data: {},
+      },
+    ]);
     for (let chunk of chunks) {
       let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
       console.log(ticketChunk);
