@@ -3,7 +3,6 @@ const app = express();
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const { checkToken } = require("./helpers/jwt");
 const PORT = process.env.PORT || 5000;
 
@@ -13,8 +12,7 @@ require("./db");
 //Middlewares
 app.use(cors());
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 /*********************************************************/
 
